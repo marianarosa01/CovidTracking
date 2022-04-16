@@ -1,4 +1,4 @@
-package com.covidtracking.CovidTracking.entities;
+package com.covidtracking.CovidTracking.models;
 
 import java.lang.annotation.Inherited;
 import java.util.Objects;
@@ -31,7 +31,10 @@ public class Statistics {
         this.numberRecoveries = numberRecoveries;
     }
 
+    @OneToOne(mappedBy = "place", cascade = CascadeType.ALL, orphanRemoval = true)
+    private Place place;
 
+    
     public Statistics() {
     }
 

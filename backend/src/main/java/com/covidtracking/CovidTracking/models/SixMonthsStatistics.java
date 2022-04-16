@@ -1,4 +1,4 @@
-package com.covidtracking.CovidTracking.entities;
+package com.covidtracking.CovidTracking.models;
 
 import java.lang.annotation.Inherited;
 import java.sql.Date;
@@ -12,9 +12,8 @@ public class SixMonthsStatistics {
     
 
 
-    
     @Id
-    private Long six_placeId;
+    private Long sixPlaceId;
     private Long six_totalCases;
     private Long six_newCases;
     private Long six_otalDeaths;
@@ -27,7 +26,7 @@ public class SixMonthsStatistics {
     }
 
     public SixMonthsStatistics(Long six_placeId, Long six_totalCases, Long six_newCases, Long six_otalDeaths, Long six_newDeaths, Long six_criticalState, Long six_numberRecoveries, Date date) {
-        this.six_placeId = six_placeId;
+        this.sixPlaceId = six_placeId;
         this.six_totalCases = six_totalCases;
         this.six_newCases = six_newCases;
         this.six_otalDeaths = six_otalDeaths;
@@ -39,11 +38,11 @@ public class SixMonthsStatistics {
 
 
     public Long getSix_placeId() {
-        return this.six_placeId;
+        return this.sixPlaceId;
     }
 
     public void setSix_placeId(Long six_placeId) {
-        this.six_placeId = six_placeId;
+        this.sixPlaceId = six_placeId;
     }
 
     public Long getSix_totalCases() {

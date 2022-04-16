@@ -1,25 +1,26 @@
-package com.covidtracking.CovidTracking.entities;
+package com.covidtracking.CovidTracking.models;
 
-
-import java.lang.annotation.Inherited;
 
 import javax.persistence.*;
 
 @Entity
-@Table(name = "country")
+@Table(name = "place")
 public class Place  {
     @Id
-    private Long countryId;
+    private String id;
     private String country;
     private String continent;
-    private int population;
+    private Long population;
 
-    public Long getCountryId() {
-        return this.countryId;
+  
+    private Statistics stats;
+
+    public String getCountryId() {
+        return this.id;
     }
 
-    public void setCountryId(Long countryId) {
-        this.countryId = countryId;
+    public void setCountryId(String id) {
+        this.id = id;
     }
 
     public String getCountry() {
@@ -38,11 +39,11 @@ public class Place  {
         this.continent = continent;
     }
 
-    public int getPopulation() {
+    public Long getPopulation() {
         return this.population;
     }
 
-    public void setPopulation(int population) {
+    public void setPopulation(Long population) {
         this.population = population;
     }
 
@@ -51,21 +52,23 @@ public class Place  {
     }
 
 
-    public Place(Long countryId, String country, String continent) {
-        this.countryId = countryId;
+    public Place(String Id, String country, String continent, Long population) {
+        this.id = Id;
         this.country = country;
         this.continent = continent;
+        this.population = population;
     }
 
     @Override
     public String toString() {
         return "{" +
-            " countryId='" + getCountryId() + "'" +
+            " Id='" + getCountryId() + "'" +
             ", country='" + getCountry() + "'" +
             ", continent='" + getContinent() + "'" +
             ", population='" + getPopulation() + "'" +
             "}";
     }
+
 
     
 
