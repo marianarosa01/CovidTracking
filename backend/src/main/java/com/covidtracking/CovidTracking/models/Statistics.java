@@ -11,101 +11,121 @@ import javax.persistence.*;
 public class Statistics {
     
     @Id
-    private Long placeId;
-    private Long totalCases;
-    private Long newCases;
-    private Long totalDeaths;
-    private Long newDeaths;
-    private Long criticalState;
-    private Long numberRecoveries;
+    private Place place;
+    private Integer totalCases;
+    private Integer newCases;
+    private Integer totalDeaths;
+    private Integer newDeaths;
+    private Integer criticalState;
+    private Integer totalRecoveries;
+    private Integer newRecoveries;
+    private Double infectionRisk;
 
 
 
-    public Statistics(Long placeId, Long totalCases, Long newCases, Long totalDeaths, Long newDeaths, Long criticalState, Long numberRecoveries) {
-        this.placeId = placeId;
+
+    public Statistics(Place place, Integer totalCases, Integer newCases, Integer totalDeaths, Integer newDeaths, Integer criticalState, Integer newRecoveries, Integer totalRecoveries, Double infectionRisk) {
+        this.place = place;
         this.totalCases = totalCases;
         this.newCases = newCases;
         this.totalDeaths = totalDeaths;
         this.newDeaths = newDeaths;
         this.criticalState = criticalState;
-        this.numberRecoveries = numberRecoveries;
+        this.newRecoveries = newRecoveries;
+        this.totalRecoveries = totalRecoveries;
+
+        this.infectionRisk = infectionRisk;
     }
 
-    @OneToOne(mappedBy = "place", cascade = CascadeType.ALL, orphanRemoval = true)
-    private Place place;
+    public Double getInfectionRisk() {
+        return this.infectionRisk;
+    }
 
-    
+    public void setInfectionRisk(Double infectionRisk) {
+        this.infectionRisk = infectionRisk;
+    }
+
+    public Place getPlace() {
+        return this.place;
+    }
+
+    public void setPlace(Place place) {
+        this.place = place;
+    }
+
+
     public Statistics() {
     }
 
 
-    public Long getPlaceId() {
-        return this.placeId;
-    }
 
-    public void setPlaceId(Long placeId) {
-        this.placeId = placeId;
-    }
-
-    public Long getTotalCases() {
+    public Integer getTotalCases() {
         return this.totalCases;
     }
 
-    public void setTotalCases(Long totalCases) {
+    public void setTotalCases(Integer totalCases) {
         this.totalCases = totalCases;
     }
 
-    public Long getNewCases() {
+    public Integer getNewCases() {
         return this.newCases;
     }
 
-    public void setNewCases(Long newCases) {
+    public void setNewCases(Integer newCases) {
         this.newCases = newCases;
     }
 
-    public Long getTotalDeaths() {
+    public Integer getTotalDeaths() {
         return this.totalDeaths;
     }
 
-    public void setTotalDeaths(Long totalDeaths) {
+    public void setTotalDeaths(Integer totalDeaths) {
         this.totalDeaths = totalDeaths;
     }
 
-    public Long getNewDeaths() {
+    public Integer getNewDeaths() {
         return this.newDeaths;
     }
 
-    public void setNewDeaths(Long newDeaths) {
+    public void setNewDeaths(Integer newDeaths) {
         this.newDeaths = newDeaths;
     }
 
-    public Long getCriticalState() {
+    public Integer getCriticalState() {
         return this.criticalState;
     }
 
-    public void setCriticalState(Long criticalState) {
+    public void setCriticalState(Integer criticalState) {
         this.criticalState = criticalState;
     }
 
-    public Long getNumberRecoveries() {
-        return this.numberRecoveries;
+
+    
+    public Integer getTotalRecoveries() {
+        return this.totalRecoveries;
     }
 
-    public void setNumberRecoveries(Long numberRecoveries) {
-        this.numberRecoveries = numberRecoveries;
+    public void setTotalRecoveries(Integer totalRecoveries) {
+        this.totalRecoveries = totalRecoveries;
     }
 
+    public Integer getNewRecoveries() {
+        return this.newRecoveries;
+    }
+
+    public void setNewRecoveries(Integer newRecoveries) {
+        this.newRecoveries = newRecoveries;
+    }
 
     @Override
     public String toString() {
         return "{" +
-            " placeId='" + getPlaceId() + "'" +
+            " place='" + getPlace() + "'" +
             ", totalCases='" + getTotalCases() + "'" +
             ", newCases='" + getNewCases() + "'" +
             ", totalDeaths='" + getTotalDeaths() + "'" +
             ", newDeaths='" + getNewDeaths() + "'" +
             ", criticalState='" + getCriticalState() + "'" +
-            ", numberRecoveries='" + getNumberRecoveries() + "'" +
             "}";
     }
 

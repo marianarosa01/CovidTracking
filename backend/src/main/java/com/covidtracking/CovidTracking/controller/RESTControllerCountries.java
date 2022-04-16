@@ -16,7 +16,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 @RestController
-@RequestMapping("/api")
+@RequestMapping("/api/countries")
 public class RESTControllerCountries {
 
     @Autowired
@@ -25,7 +25,7 @@ public class RESTControllerCountries {
     @Autowired
     public HandlingRequestsService handler;
 
-    @GetMapping("/countries")
+    @GetMapping("/all")
     public ArrayList<Place> getAllCountries() throws IOException, URISyntaxException, InterruptedException {
         ArrayList<Place> places = this.service.getAsianCountries();
         if (places == null) {
@@ -44,7 +44,7 @@ public class RESTControllerCountries {
 
     }
 
-    @GetMapping("/countries/asian")
+    @GetMapping("/asia")
     public ArrayList<Place> getAsianCountries() throws IOException, URISyntaxException, InterruptedException {
         ArrayList<Place> places = this.service.getAsianCountries();
         if (places == null) {
@@ -57,7 +57,7 @@ public class RESTControllerCountries {
         return namePlaces;
     }
 
-    @GetMapping("/countries/american")
+    @GetMapping("/america")
     public ArrayList<Place> getAmericanPlaces() throws IOException, URISyntaxException, InterruptedException {
         ArrayList<Place> places = this.service.getAmericanCountries();
         if (places == null) {
@@ -70,7 +70,7 @@ public class RESTControllerCountries {
         return namePlaces;
     }
 
-    @GetMapping("/countries/europe")
+    @GetMapping("/europe")
     public ArrayList<Place> getEuropeanPlaces() throws IOException, URISyntaxException, InterruptedException {
         ArrayList<Place> places = this.service.getEuropeanCountries();
         if (places == null) {
@@ -83,7 +83,7 @@ public class RESTControllerCountries {
         return namePlaces;
     }
 
-    @GetMapping("/countries/australia")
+    @GetMapping("/australia")
     public ArrayList<Place> getOceanicPlaces() throws IOException, URISyntaxException, InterruptedException {
         ArrayList<Place> places = this.service.getAustralianCountries();
         if (places == null) {
@@ -96,7 +96,7 @@ public class RESTControllerCountries {
         return namePlaces;
     }
 
-    @GetMapping("/countries/africa")
+    @GetMapping("/africa")
     public ArrayList<Place> getAfricanPlaces() throws IOException, URISyntaxException, InterruptedException {
         ArrayList<Place> places = this.service.getAfricanCountries();
         if (places == null) {

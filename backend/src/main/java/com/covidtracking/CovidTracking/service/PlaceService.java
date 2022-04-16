@@ -16,9 +16,28 @@ import com.covidtracking.CovidTracking.models.Place;
 public class PlaceService {
     
     private String endpoint;
-    
+
     private HandlingRequestsService handler;
     
+    public ArrayList<Place> getAllCountries() throws IOException, URISyntaxException, InterruptedException {
+        
+        final ArrayList<Place> world = new ArrayList<>();
+
+        ArrayList<Place> africa = getAfricanCountries();
+        ArrayList<Place> america = getAmericanCountries();
+        ArrayList<Place> australia = getAustralianCountries();
+        ArrayList<Place> europe = getEuropeanCountries();
+        ArrayList<Place> asia = getAsianCountries();
+
+        world.addAll(africa);
+        world.addAll(america);
+        world.addAll(europe);
+        world.addAll(asia);
+        world.addAll(australia);
+
+        return world;
+
+    }
     public ArrayList<Place> getAsianCountries() throws IOException, URISyntaxException, InterruptedException {
         HandlingRequestsService handler = new HandlingRequestsService();
         endpoint = "npm-covid-data/asia";
@@ -39,6 +58,7 @@ public class PlaceService {
             
             if (asianCountries.contains(newPlace) == false){
                 asianCountries.add(newPlace);
+
             }
 
         }
@@ -67,6 +87,7 @@ public class PlaceService {
             
             if (europeanCountries.contains(newPlace) == false){
                 europeanCountries.add(newPlace);
+
             }
 
         }
@@ -131,6 +152,7 @@ public class PlaceService {
             
             if (australianCountries.contains(newPlace) == false){
                 australianCountries.add(newPlace);
+
             }
 
         }
@@ -159,6 +181,7 @@ public class PlaceService {
             
             if (africanCountries.contains(newPlace) == false){
                 africanCountries.add(newPlace);
+
             }
 
         }
@@ -166,6 +189,29 @@ public class PlaceService {
 
        
     }
+
+    public Place getPlaceByCountryName(String country){
+        Place selectedCountry = new Place();
+
+        try {
+
+			ArrayList<Place> world = getAllCountries();
+
+            for (Place p : world) {
+                
+                if (p.getCountry() == country){
+                    selectedCountry = p;
+                }
+            } 
+		} catch (IOException | URISyntaxException | InterruptedException e) {
+			e.printStackTrace();
+		}
+        
+		return selectedCountry;
+
+    }
+}
+
 /*
     @Autowired 
     private PlaceRepository repository;
@@ -208,5 +254,3 @@ public class PlaceService {
 
 
 
-}
-  
