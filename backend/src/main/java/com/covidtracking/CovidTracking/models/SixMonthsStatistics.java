@@ -13,97 +13,100 @@ public class SixMonthsStatistics {
 
 
     @Id
-    private Long sixPlaceId;
-    private Long six_totalCases;
-    private Long six_newCases;
-    private Long six_otalDeaths;
-    private Long six_newDeaths;
-    private Long six_criticalState;
-    private Long six_numberRecoveries;
-    private Date date;
+    private String sixPlaceId;
+    private String country;
+    private Integer six_totalCases;
+    private Integer six_newCases;
+    private Integer six_totalDeaths;
+    private Integer six_newDeaths;
+    private Integer six_total_tests;
+    private Integer six_new_tests;
+    private String date;
 
-    public SixMonthsStatistics(){        
-    }
-
-    public SixMonthsStatistics(Long six_placeId, Long six_totalCases, Long six_newCases, Long six_otalDeaths, Long six_newDeaths, Long six_criticalState, Long six_numberRecoveries, Date date) {
-        this.sixPlaceId = six_placeId;
+    public SixMonthsStatistics(String sixPlaceId, String country, Integer six_totalCases, Integer six_newCases, Integer six_totalDeaths, Integer six_newDeaths, Integer six_total_tests, Integer six_new_tests, String date) {
+        this.sixPlaceId = sixPlaceId;
+        this.country = country;
         this.six_totalCases = six_totalCases;
         this.six_newCases = six_newCases;
-        this.six_otalDeaths = six_otalDeaths;
+        this.six_totalDeaths = six_totalDeaths;
         this.six_newDeaths = six_newDeaths;
-        this.six_criticalState = six_criticalState;
-        this.six_numberRecoveries = six_numberRecoveries;
+        this.six_total_tests = six_total_tests;
+        this.six_new_tests = six_new_tests;
         this.date = date;
     }
 
 
-    public Long getSix_placeId() {
+    public String getSixPlaceId() {
         return this.sixPlaceId;
     }
 
-    public void setSix_placeId(Long six_placeId) {
-        this.sixPlaceId = six_placeId;
+    public void setSixPlaceId(String sixPlaceId) {
+        this.sixPlaceId = sixPlaceId;
     }
 
-    public Long getSix_totalCases() {
+    public String getCountry() {
+        return this.country;
+    }
+
+    public void setCountry(String country) {
+        this.country = country;
+    }
+
+    public Integer getSix_totalCases() {
         return this.six_totalCases;
     }
 
-    public void setSix_totalCases(Long six_totalCases) {
+    public void setSix_totalCases(Integer six_totalCases) {
         this.six_totalCases = six_totalCases;
     }
 
-    public Long getSix_newCases() {
+    public Integer getSix_newCases() {
         return this.six_newCases;
     }
 
-    public void setSix_newCases(Long six_newCases) {
+    public void setSix_newCases(Integer six_newCases) {
         this.six_newCases = six_newCases;
     }
 
-    public Long getSix_otalDeaths() {
-        return this.six_otalDeaths;
+    public Integer getSix_totalDeaths() {
+        return this.six_totalDeaths;
     }
 
-    public void setSix_otalDeaths(Long six_otalDeaths) {
-        this.six_otalDeaths = six_otalDeaths;
+    public void setSix_totalDeaths(Integer six_totalDeaths) {
+        this.six_totalDeaths = six_totalDeaths;
     }
 
-    public Long getSix_newDeaths() {
+    public Integer getSix_newDeaths() {
         return this.six_newDeaths;
     }
 
-    public void setSix_newDeaths(Long six_newDeaths) {
+    public void setSix_newDeaths(Integer six_newDeaths) {
         this.six_newDeaths = six_newDeaths;
     }
 
-    public Long getSix_criticalState() {
-        return this.six_criticalState;
+    public Integer getSix_total_tests() {
+        return this.six_total_tests;
     }
 
-    public void setSix_criticalState(Long six_criticalState) {
-        this.six_criticalState = six_criticalState;
+    public void setSix_total_tests(Integer six_total_tests) {
+        this.six_total_tests = six_total_tests;
     }
 
-    public Long getSix_numberRecoveries() {
-        return this.six_numberRecoveries;
+    public Integer getSix_new_tests() {
+        return this.six_new_tests;
     }
 
-    public void setSix_numberRecoveries(Long six_numberRecoveries) {
-        this.six_numberRecoveries = six_numberRecoveries;
+    public void setSix_new_tests(Integer six_new_tests) {
+        this.six_new_tests = six_new_tests;
     }
 
-    public Date getDate() {
+    public String getDate() {
         return this.date;
     }
 
-    public void setDate(Date date) {
+    public void setDate(String date) {
         this.date = date;
     }
-
-  
-
-    
-
+    public SixMonthsStatistics(){        
+    }
 }
-

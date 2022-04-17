@@ -11,7 +11,7 @@ import javax.persistence.*;
 public class Statistics {
     
     @Id
-    private Place place;
+    private String place;
     private Integer totalCases;
     private Integer newCases;
     private Integer totalDeaths;
@@ -24,7 +24,7 @@ public class Statistics {
 
 
 
-    public Statistics(Place place, Integer totalCases, Integer newCases, Integer totalDeaths, Integer newDeaths, Integer criticalState, Integer newRecoveries, Integer totalRecoveries, Double infectionRisk) {
+    public Statistics(String place, Integer totalCases, Integer newCases, Integer totalDeaths, Integer newDeaths, Integer criticalState, Integer newRecoveries, Integer totalRecoveries, Double infectionRisk) {
         this.place = place;
         this.totalCases = totalCases;
         this.newCases = newCases;
@@ -45,11 +45,11 @@ public class Statistics {
         this.infectionRisk = infectionRisk;
     }
 
-    public Place getPlace() {
+    public String getPlace() {
         return this.place;
     }
 
-    public void setPlace(Place place) {
+    public void setPlace(String place) {
         this.place = place;
     }
 

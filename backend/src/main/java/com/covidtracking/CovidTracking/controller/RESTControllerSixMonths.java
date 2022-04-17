@@ -5,8 +5,10 @@ import java.net.URISyntaxException;
 import java.util.ArrayList;
 
 import com.covidtracking.CovidTracking.exception.ResourceNotFoundException;
+import com.covidtracking.CovidTracking.models.SixMonthsStatistics;
 import com.covidtracking.CovidTracking.models.Statistics;
 import com.covidtracking.CovidTracking.service.HandlingRequestsService;
+import com.covidtracking.CovidTracking.service.SixMonthsStatisticsService;
 import com.covidtracking.CovidTracking.service.StatisticsService;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -16,30 +18,27 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 @RestController
-@RequestMapping("/api/statistics")
-public class RESTControllerStatistic {
+@RequestMapping("/api/sixmonths/stats")
+public class RESTControllerSixMonths {
 
     @Autowired
-    public StatisticsService service;
+    public SixMonthsStatisticsService service;
 
     @Autowired
     public HandlingRequestsService handler;
 
 
     @GetMapping("/world")
-    public Statistics getWorldStatistics() throws ResourceNotFoundException, IOException, URISyntaxException, InterruptedException {
-        return service.getStatsWorld();
+    public ArrayList<SixMonthsStatistics> getWorldStatistics() throws ResourceNotFoundException, IOException, URISyntaxException, InterruptedException {
+        return service.getStatisticsData("");
     }
 
-    @GetMapping("/countries")
-    public ArrayList<Statistics> getCountriesStatistics() throws ResourceNotFoundException, IOException, URISyntaxException, InterruptedException {
-        return service.getStatisticsData("","");
+    @GetMapping("/{iso}")
+    public ArrayList<SixMonthsStatistics> getCountriesStatistics(@PathVariable String iso) throws ResourceNotFoundException, IOException, URISyntaxException, InterruptedException {
+        return service.getStatisticsData(iso);
     }
 
 
-    @GetMapping("/{country}/{iso}")
-    public ArrayList<Statistics> getStatsByCountry(@PathVariable(value="country") String country, @PathVariable(value="iso") String iso) throws ResourceNotFoundException, InterruptedException, IOException {
-        return service.getStatisticsData(country,iso);
-    }
+   
 
 }

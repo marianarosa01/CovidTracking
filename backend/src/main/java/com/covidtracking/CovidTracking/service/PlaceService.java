@@ -3,6 +3,7 @@ package com.covidtracking.CovidTracking.service;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 
 import org.json.JSONArray;
 
@@ -15,192 +16,80 @@ import com.covidtracking.CovidTracking.models.Place;
 @Service
 public class PlaceService {
     
-    private String endpoint;
-
     private HandlingRequestsService handler;
     
     public ArrayList<Place> getAllCountries() throws IOException, URISyntaxException, InterruptedException {
         
-        final ArrayList<Place> world = new ArrayList<>();
+        ArrayList<Place> world = new ArrayList<>();
+        System.out.println("worlddddddddddddddddd");
 
-        ArrayList<Place> africa = getAfricanCountries();
-        ArrayList<Place> america = getAmericanCountries();
-        ArrayList<Place> australia = getAustralianCountries();
-        ArrayList<Place> europe = getEuropeanCountries();
-        ArrayList<Place> asia = getAsianCountries();
-
+        ArrayList<Place> africa = getContinentCountries("africa");
+        ArrayList<Place> america =  getContinentCountries("northamerica");
+        ArrayList<Place> america2 =  getContinentCountries("southamerica");
+        ArrayList<Place> australia =  getContinentCountries("australia");
+        ArrayList<Place> europe = getContinentCountries("europe");
+        ArrayList<Place> asia = getContinentCountries("asia");
+        System.out.println(world);
         world.addAll(africa);
         world.addAll(america);
+        world.addAll(america2);
         world.addAll(europe);
+        System.out.println(world);
+
         world.addAll(asia);
         world.addAll(australia);
 
+        System.out.println(world);
         return world;
 
     }
-    public ArrayList<Place> getAsianCountries() throws IOException, URISyntaxException, InterruptedException {
+    
+    
+    public ArrayList<Place> getContinentCountries(String continente) throws IOException, URISyntaxException, InterruptedException {
         HandlingRequestsService handler = new HandlingRequestsService();
-        endpoint = "npm-covid-data/asia";
+        String endpoint = "npm-covid-data/" + continente; 
         String data = handler.connectAPI(endpoint);
         JSONArray jsonArray = new JSONArray(data);
-        ArrayList<Place> asianCountries = new ArrayList<>();
+        ArrayList<Place> continents = new ArrayList<>();
 
         for(int i = 0; i < jsonArray.length(); i++) {
 
             JSONObject objectJSON =  (JSONObject) jsonArray.get(i);
             String country = objectJSON.get("Country").toString();
-            String continente = objectJSON.get("Continent").toString();
+            String continent = objectJSON.get("Continent").toString();
             String id = objectJSON.get("id").toString();
             String population = objectJSON.get("Population").toString();
+            String iso =  objectJSON.get("ThreeLetterSymbol").toString();
             Long pop_long = Long.valueOf(population);
 
-            Place newPlace = new Place(id, country,continente, pop_long);
+            Place newPlace = new Place(id, country, iso,continent, pop_long);
             
-            if (asianCountries.contains(newPlace) == false){
-                asianCountries.add(newPlace);
-
+            if (continents.contains(newPlace) == false){
+                continents.add(newPlace);
             }
 
+
         }
-        return asianCountries;
+        return continents;
 
        
     }
 
-    public ArrayList<Place> getEuropeanCountries() throws IOException, URISyntaxException, InterruptedException {
-        HandlingRequestsService handler = new HandlingRequestsService();
-        endpoint = "npm-covid-data/europe";
-        String data = handler.connectAPI(endpoint);
-        JSONArray jsonArray = new JSONArray(data);
-        ArrayList<Place> europeanCountries = new ArrayList<>();
-
-        for(int i = 0; i < jsonArray.length(); i++) {
-
-            JSONObject objectJSON =  (JSONObject) jsonArray.get(i);
-            String country = objectJSON.get("Country").toString();
-            String continente = objectJSON.get("Continent").toString();
-            String id = objectJSON.get("id").toString();
-            String population = objectJSON.get("Population").toString();
-            Long pop_long = Long.valueOf(population);
-
-            Place newPlace = new Place(id, country,continente, pop_long);
-            
-            if (europeanCountries.contains(newPlace) == false){
-                europeanCountries.add(newPlace);
-
-            }
-
-        }
-        return europeanCountries;
-
-       
-    }
-
-    public ArrayList<Place> getAmericanCountries() throws IOException, URISyntaxException, InterruptedException {
-
-        HandlingRequestsService handler1 = new HandlingRequestsService();
-        String endpoint1 = "npm-covid-data/northamerica";
-        String data1 = handler1.connectAPI(endpoint1);
-        JSONArray jsonArray1 = new JSONArray(data1);
-
-        String endpoint2 = "npm-covid-data/southamerica";
-        String data2 = handler1.connectAPI(endpoint2);
-        JSONArray jsonArray2 = new JSONArray(data2);
-
-        for (int i = 0; i < jsonArray1.length(); i++) {
-            jsonArray2.put(jsonArray1.getJSONObject(i));
-        }
-        ArrayList<Place> americanCountries = new ArrayList<>();
-
-        for(int i = 0; i < jsonArray2.length(); i++) {
-
-            JSONObject objectJSON =  (JSONObject) jsonArray2.get(i);
-            String country = objectJSON.get("Country").toString();
-            String continente = objectJSON.get("Continent").toString();
-            String id = objectJSON.get("id").toString();
-            String population = objectJSON.get("Population").toString();
-            Long pop_long = Long.valueOf(population);
-
-            Place newPlace = new Place(id, country,continente, pop_long);
-            
-            if (americanCountries.contains(newPlace) == false){
-                americanCountries.add(newPlace);
-            }
-
-        }
-        return americanCountries;
-
-    }
-
-    public ArrayList<Place> getAustralianCountries() throws IOException, URISyntaxException, InterruptedException {
-        HandlingRequestsService handler = new HandlingRequestsService();
-        endpoint = "npm-covid-data/australia";
-        String data = handler.connectAPI(endpoint);
-        JSONArray jsonArray = new JSONArray(data);
-        ArrayList<Place> australianCountries = new ArrayList<>();
-
-        for(int i = 0; i < jsonArray.length(); i++) {
-
-            JSONObject objectJSON =  (JSONObject) jsonArray.get(i);
-            String country = objectJSON.get("Country").toString();
-            String continente = objectJSON.get("Continent").toString();
-            String id = objectJSON.get("id").toString();
-            String population = objectJSON.get("Population").toString();
-            Long pop_long = Long.valueOf(population);
-
-            Place newPlace = new Place(id, country,continente, pop_long);
-            
-            if (australianCountries.contains(newPlace) == false){
-                australianCountries.add(newPlace);
-
-            }
-
-        }
-        return australianCountries;
-
-       
-    }
-
-    public ArrayList<Place> getAfricanCountries() throws IOException, URISyntaxException, InterruptedException {
-        HandlingRequestsService handler = new HandlingRequestsService();
-        endpoint = "npm-covid-data/australia";
-        String data = handler.connectAPI(endpoint);
-        JSONArray jsonArray = new JSONArray(data);
-        ArrayList<Place> africanCountries = new ArrayList<>();
-
-        for(int i = 0; i < jsonArray.length(); i++) {
-
-            JSONObject objectJSON =  (JSONObject) jsonArray.get(i);
-            String country = objectJSON.get("Country").toString();
-            String continente = objectJSON.get("Continent").toString();
-            String id = objectJSON.get("id").toString();
-            String population = objectJSON.get("Population").toString();
-            Long pop_long = Long.valueOf(population);
-
-            Place newPlace = new Place(id, country,continente, pop_long);
-            
-            if (africanCountries.contains(newPlace) == false){
-                africanCountries.add(newPlace);
-
-            }
-
-        }
-        return africanCountries;
-
-       
-    }
 
     public Place getPlaceByCountryName(String country){
+
         Place selectedCountry = new Place();
-
+        System.out.println("here");
         try {
-
 			ArrayList<Place> world = getAllCountries();
-
+            System.out.println("hi");
+            System.out.println(world);
             for (Place p : world) {
-                
                 if (p.getCountry() == country){
                     selectedCountry = p;
+                    System.out.println("A RESPOSTA E");
+                    System.out.println(selectedCountry);
+
                 }
             } 
 		} catch (IOException | URISyntaxException | InterruptedException e) {
@@ -210,6 +99,8 @@ public class PlaceService {
 		return selectedCountry;
 
     }
+
+   
 }
 
 /*

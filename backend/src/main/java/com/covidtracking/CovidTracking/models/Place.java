@@ -10,7 +10,32 @@ public class Place  {
     private String id;
     private String country;
     private String continent;
+    private String iso;
     private Long population;
+
+    public String getId() {
+        return this.id;
+    }
+
+    public void setId(String id) {
+        this.id = id;
+    }
+
+    public String getIso() {
+        return this.iso;
+    }
+
+    public void setIso(String iso) {
+        this.iso = iso;
+    }
+
+    public Statistics getStats() {
+        return this.stats;
+    }
+
+    public void setStats(Statistics stats) {
+        this.stats = stats;
+    }
 
   
     private Statistics stats;
@@ -52,11 +77,12 @@ public class Place  {
     }
 
 
-    public Place(String Id, String country, String continent, Long population) {
+    public Place(String Id, String country, String iso, String continent, Long population) {
         this.id = Id;
         this.country = country;
         this.continent = continent;
         this.population = population;
+        this.iso = iso;
     }
 
     @Override
@@ -66,6 +92,8 @@ public class Place  {
             ", country='" + getCountry() + "'" +
             ", continent='" + getContinent() + "'" +
             ", population='" + getPopulation() + "'" +
+            ", iso='" + getIso() + "'" +
+
             "}";
     }
 

@@ -46,7 +46,6 @@ public class HandlingRequestsService {
             .build();
 
         HttpResponse<String> response = HttpClient.newHttpClient().send(request, HttpResponse.BodyHandlers.ofString());
-        //JSONArray jsonData = new JSONArray(response.body());
         return response.body();
         
     }
