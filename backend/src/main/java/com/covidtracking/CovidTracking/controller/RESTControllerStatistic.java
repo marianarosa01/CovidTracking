@@ -33,13 +33,14 @@ public class RESTControllerStatistic {
 
     @GetMapping("/countries")
     public ArrayList<Statistics> getCountriesStatistics() throws ResourceNotFoundException, IOException, URISyntaxException, InterruptedException {
-        return service.getStatisticsData("","");
+        return service.getStatisticsData("");
     }
 
 
-    @GetMapping("/{country}/{iso}")
-    public ArrayList<Statistics> getStatsByCountry(@PathVariable(value="country") String country, @PathVariable(value="iso") String iso) throws ResourceNotFoundException, InterruptedException, IOException {
-        return service.getStatisticsData(country,iso);
+    @GetMapping("/{country}")
+    public ArrayList<Statistics> getStatsByCountry(@PathVariable(value="country") String country) throws ResourceNotFoundException, InterruptedException, IOException {
+    
+        return service.getStatisticsData(country);
     }
 
 }

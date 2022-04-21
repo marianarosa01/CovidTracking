@@ -33,7 +33,6 @@ public class Statistics {
         this.criticalState = criticalState;
         this.newRecoveries = newRecoveries;
         this.totalRecoveries = totalRecoveries;
-
         this.infectionRisk = infectionRisk;
     }
 

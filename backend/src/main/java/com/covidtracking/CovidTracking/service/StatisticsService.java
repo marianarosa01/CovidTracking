@@ -7,7 +7,10 @@ import org.springframework.stereotype.Service;
 import java.io.IOException;
 import java.net.URISyntaxException;
 import java.util.ArrayList;
-
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+import com.covidtracking.CovidTracking.cache.Cache;
+import com.covidtracking.CovidTracking.cache.Status;
 import com.covidtracking.CovidTracking.models.Place;
 import com.covidtracking.CovidTracking.models.Statistics;
 
@@ -17,24 +20,40 @@ public class StatisticsService {
     private String endpoint;
     private HandlingRequestsService handler;
     private PlaceService placesService = new PlaceService();
+    private static final Logger log = LoggerFactory.getLogger(PlaceService.class);
+    Status st = new Status(0, 0);
 
     private ArrayList<Statistics> allStats = new ArrayList<>();
 
-    public Statistics getStatsWorld() throws IOException, InterruptedException{
+    public Statistics getStatsWorld() throws IOException, InterruptedException {
         HandlingRequestsService handler = new HandlingRequestsService();
         endpoint = "npm-covid-data/world";
         String data = handler.connectAPI(endpoint);
         JSONArray jsonArray = new JSONArray(data);
         JSONObject obj = (JSONObject) jsonArray.get(0);
-        Statistics s = analysing(obj);
+        Object statsWorld = Cache.cacheMap.get("world_stats");
+        Statistics s;
+
+        if (statsWorld == null) {
+            s = analysing(obj);
+            log.info(">> [REQUEST] Getting world stats");
+            Cache.cacheMap.put("world_statistics", s);
+            st.setMiss();
+            st.TimerCache("world_statistics");
+        } else {
+            s = (Statistics) statsWorld;
+            log.info(">> [CACHE] Getting world stats");
+
+        }
+
         return s;
     }
 
-
-    public ArrayList<Statistics> getStatisticsData(String country, String iso) throws InterruptedException, IOException {
+    public ArrayList<Statistics> getStatisticsData(String country) throws InterruptedException, IOException {
+        allStats.clear();
         HandlingRequestsService handler = new HandlingRequestsService();
        
-        if (country == "" && iso == "" ) {
+        if (country == "" ) {
             endpoint = "npm-covid-data/countries/";
             String data = handler.connectAPI(endpoint);
             JSONArray jsonArray = new JSONArray(data);
@@ -48,21 +67,42 @@ public class StatisticsService {
         }
 
         else {
-            endpoint = "npm-covid-data/country-report-iso-based/" + country + "/" + iso;
-            String data2 = handler.connectAPI(endpoint);
-            JSONArray jsonArray2 = new JSONArray(data2);
-            
-            for (int i = 0; i < jsonArray2.length(); i++) {
-                JSONObject objectJSONCountry = (JSONObject) jsonArray2.get(i);
-                Statistics statCountry = analysing(objectJSONCountry);
-                allStats.add(statCountry);
+
+            Object statsCountry = Cache.cacheMap.get("country_"+ country + "_statistics");
+
+            if (statsCountry == null){
+                allStats.clear();
+
+                String isoCountry = placesService.getIso(country);
+                endpoint = "npm-covid-data/country-report-iso-based/" + country + "/" + isoCountry;
+                String data2 = handler.connectAPI(endpoint);
+                JSONArray jsonArray2 = new JSONArray(data2);
+                Statistics statCountry;
+                for (int i = 0; i < jsonArray2.length(); i++) {
+                    JSONObject objectJSONCountry = (JSONObject) jsonArray2.get(i);
+                    statCountry = analysing(objectJSONCountry);
+                    allStats.add(statCountry);
+                    Cache.cacheMap.put("country_"+ country + "_statistics", statCountry);
+                }
+                
+                log.info(">> [REQUEST] Getting country statistics");
+                st.setMiss();
+                st.TimerCache("country_"+ country + "_statistics");
             }
+            else{
+                allStats.clear();
+                System.out.println("dsa");
+                System.out.println(statsCountry);
+                allStats.add((Statistics) statsCountry);
+                log.info(">> [CACHE] Getting country statistics");
+            }
+
         }
 
         return allStats;
     }
 
-
+  
 
     public Statistics analysing(JSONObject obj) {
 
@@ -81,54 +121,4 @@ public class StatisticsService {
         return stat;
     }
 
-    /*
-     * 
-     * public Statistics getStatisticByCountryId(Long id){
-     * return repository.findByPlaceId(id);
-     * }
-     * 
-     * 
-     * public Statistics saveStatistic(Statistics st) {
-     * return repository.save(st);
-     * }
-     * 
-     * public List<Statistics> saveStatistics(List<Statistics> sts) { return
-     * repository.saveAll(sts); }
-     * 
-     * public List<Statistics> getStatistics() { return repository.findAll(); }
-     * 
-     * 
-     * public Statistics getStatisticByID(int id) throws ResourceNotFoundException {
-     * return repository.findById(id)
-     * .orElseThrow(() -> new
-     * ResourceNotFoundException("Statistic not found for this id:" + id));
-     * }
-     * 
-     * public Map<String, Boolean> deleteStatistic(int id) throws
-     * ResourceNotFoundException {
-     * repository.findById(id).orElseThrow(() -> new
-     * ResourceNotFoundException("Statistic not found for this id:" + id));
-     * repository.deleteById(id);
-     * Map<String, Boolean> response = new HashMap<>();
-     * response.put("deleted", Boolean.TRUE);
-     * return response;
-     * }
-     * 
-     * public Statistics updateStatistic(int id, Statistics st) throws
-     * ResourceNotFoundException {
-     * Statistics existingStatistic = repository.findById(id)
-     * .orElseThrow(() -> new
-     * ResourceNotFoundException("Statistic not found for this id:" + id));
-     * 
-     * existingStatistic.setTotalCases(st.getTotalCases());
-     * existingStatistic.setNewCases(st.getNewCases());
-     * existingStatistic.setTotalDeaths(st.getTotalCases());
-     * existingStatistic.setNewDeaths(st.getNewDeaths());
-     * existingStatistic.setCriticalState(st.getCriticalState());
-     * existingStatistic.setNumberRecoveries(st.getNumberRecoveries());
-     * 
-     * return repository.save(existingStatistic);
-     * }
-     * 
-     */
 }

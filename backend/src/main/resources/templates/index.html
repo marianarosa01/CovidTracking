@@ -1,5 +1,6 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
+    
 
 <head>
 
@@ -24,7 +25,7 @@
 
 </head>
 
-<body id="page-top">
+<body id="page-top" onload="fetchData()">
 
     <!-- Page Wrapper -->
     <div id="wrapper">
@@ -33,7 +34,7 @@
         <ul class="navbar-nav bg-gradient-primary sidebar sidebar-dark accordion" id="accordionSidebar">
 
             <!-- Sidebar - Brand -->
-            <a class="sidebar-brand d-flex align-items-center justify-content-center" href="index.html">
+            <a class="sidebar-brand d-flex align-items-center justify-content-center" href="/">
                 <div class="sidebar-brand-icon rotate-n-15">
                     <span style='font-size:50px;'>&#127759;</span>
 
@@ -46,9 +47,9 @@
 
             <!-- Nav Item - Dashboard -->
             <li class="nav-item active">
-                <a class="nav-link" href="index.html">
+                <a class="nav-link" href="index">
                     <i class="fas fa-fw fa-tachometer-alt"></i>
-                    <span>Dashboard</span></a>
+                    <span>All countries</span></a>
             </li>
 
             <!-- Divider -->
@@ -59,21 +60,22 @@
                 COVID Statistics
             </div>
 
-            <!-- Nav Item - Pages Collapse Menu -->
+        
+
+            <!-- Nav Item - Utilities Collapse Menu -->
             <li class="nav-item">
-                <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseTwo"
-                    aria-expanded="true" aria-controls="collapseTwo">
-                    <i class="fas fa-fw fa-cog"></i>
-                    <span>All Countries</span>
+                <a class="nav-link" href="countrydata">
+
+                    <i class="fas fa-fw fa-wrench"></i>
+                    <span>Specific Country</span>
                 </a>
             </li>
-
             <!-- Nav Item - Utilities Collapse Menu -->
             <li class="nav-item">
                 <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseUtilities"
                     aria-expanded="true" aria-controls="collapseUtilities">
                     <i class="fas fa-fw fa-wrench"></i>
-                    <span>Specific Country</span>
+                    <span>Six Months Statistics</span>
                 </a>
             </li>
 
@@ -185,9 +187,10 @@
                                 <div class="card-body">
                                     <div class="row no-gutters align-items-center">
                                         <div class="col mr-2">
-                                            <div class="text-xs font-weight-bold text-primary text-uppercase mb-1">
-                                                Active Cases </div>
-                                            <div class="h5 mb-0 font-weight-bold text-gray-800">$40,000</div>
+                                            <div 
+                                                class="text-xs font-weight-bold text-primary text-uppercase mb-1">
+                                                Total Cases </div>
+                                            <div id="activeCases" class="h5 mb-0 font-weight-bold text-gray-800"> </div>
                                         </div>
                                         <div class="col-auto">
                                             <i class="fa-solid fa-user"></i>
@@ -206,7 +209,8 @@
                                         <div class="col mr-2">
                                             <div class="text-xs font-weight-bold text-success text-uppercase mb-1">
                                                 New Cases</div>
-                                            <div class="h5 mb-0 font-weight-bold text-gray-800">$215,000</div>
+                                            <div id="newCases" class="h5 mb-0 font-weight-bold text-gray-800">
+                                            </div>
                                         </div>
                                         <div class="col-auto">
                                             <i class="fas fa-dollar-sign fa-2x text-gray-300"></i>
@@ -222,19 +226,16 @@
                                 <div class="card-body">
                                     <div class="row no-gutters align-items-center">
                                         <div class="col mr-2">
-                                            <div class="text-xs font-weight-bold text-info text-uppercase mb-1">New
-                                                Deaths
+                                            <div 
+                                                class="text-xs font-weight-bold text-info text-uppercase mb-1">
+                                                New Deaths
                                             </div>
                                             <div class="row no-gutters align-items-center">
                                                 <div class="col-auto">
-                                                    <div class="h5 mb-0 mr-3 font-weight-bold text-gray-800">50%</div>
+                                                    <div id="newDeaths" class="h5 mb-0 mr-3 font-weight-bold text-gray-800"> </div>
                                                 </div>
                                                 <div class="col">
-                                                    <div class="progress progress-sm mr-2">
-                                                        <div class="progress-bar bg-info" role="progressbar"
-                                                            style="width: 50%" aria-valuenow="50" aria-valuemin="0"
-                                                            aria-valuemax="100"></div>
-                                                    </div>
+                                                   
                                                 </div>
                                             </div>
                                         </div>
@@ -252,9 +253,10 @@
                                 <div class="card-body">
                                     <div class="row no-gutters align-items-center">
                                         <div class="col mr-2">
-                                            <div class="text-xs font-weight-bold text-warning text-uppercase mb-1">
+                                            <div 
+                                                class="text-xs font-weight-bold text-warning text-uppercase mb-2">
                                                 New Recoveries</div>
-                                            <div class="h5 mb-0 font-weight-bold text-gray-800">18</div>
+                                            <div id="newRecoveries" class="h5 mb-0 font-weight-bold text-gray-800"> </div>
                                         </div>
                                         <div class="col-auto">
                                             <i class="fas fa-comments fa-2x text-gray-300"></i>
@@ -264,70 +266,48 @@
                             </div>
                         </div>
                     </div>
-                    <div class="card shadow mb-4">
-                        <div class="card-header py-3">
-                            <h6 class="m-0 font-weight-bold text-primary">DataTables Example</h6>
-                        </div>
-                        <div class="card-body">
-                            <div class="table-responsive">
-                                <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
-                                    <thead>
-                                        <tr>
-                                            <th>Country</th>
-                                            <th>New Cases</th>
-                                            <th>Total Cases</th>
-                                            <th>New Deaths</th>
-                                            <th>Total Deaths</th>
-                                            <th>Critical State</th>
-                                            <th>New Recovered</th>
-                                            <th>Total Recovered</th>
-                                            <th>Infection Risk</th>
 
-                                        </tr>
-                                    </thead>
-                                    
-                                    <tbody>
-
-                                        <tr>
-                                            <td>Donna Snider</td>
-                                            <td>Customer Support</td>
-                                            <td>New York</td>
-                                            <td>27</td>
-                                            <td>2011/01/25</td>
-                                            <td>$112,000</td>
-                                        </tr>
-                                    </tbody>
-                                </table>
-                            </div>
-                        </div>
-                    </div>
+                    <!-- /.container-fluid -->
 
                 </div>
-                <!-- /.container-fluid -->
-
-            </div>
-            <!-- End of Main Content -->
+                <!-- End of Main Content -->
 
 
 
 
+                <script type="text/javascript">
+                    function fetchData() {
+                        $.get("http://localhost:8080/api/statistics/world", function (data) {
+                            let casos =  data.totalCases;
+                            document.getElementById('activeCases').innerHTML =casos;
+                            document.getElementById('newCases').innerHTML = data.newCases;
+                            document.getElementById('newDeaths').innerHTML = data.newDeaths;
+                            document.getElementById('newRecoveries').innerHTML = data.newRecoveries;
+                        });
+                        document.getElementById('totalCases').innerHTML = 'hahahah';
 
-            <!-- Bootstrap core JavaScript-->
-            <script src="vendor/jquery/jquery.min.js"></script>
-            <script src="vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
+                    }
+                    
 
-            <!-- Core plugin JavaScript-->
-            <script src="vendor/jquery-easing/jquery.easing.min.js"></script>
+                </script>
 
-            <!-- Custom scripts for all pages-->
-            <script src="js/sb-admin-2.min.js"></script>
 
-            <!-- Page level plugins -->
-            <script src="vendor/chart.js/Chart.min.js"></script>
+                <!-- Bootstrap core JavaScript-->
+                <script src="vendor/jquery/jquery.min.js"></script>
+                <script src="vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
 
-            <!-- Page level custom scripts -->
-            <script src="js/demo/chart-area-demo.js"></script>
-            <script src="js/demo/chart-pie-demo.js"></script>
+                <!-- Core plugin JavaScript-->
+                <script src="vendor/jquery-easing/jquery.easing.min.js"></script>
+
+                <!-- Custom scripts for all pages-->
+                <script src="js/sb-admin-2.min.js"></script>
+
+                <!-- Page level plugins -->
+                <script src="vendor/chart.js/Chart.min.js"></script>
+
+                <!-- Page level custom scripts -->
+                <script src="js/demo/chart-area-demo.js"></script>
+                <script src="js/demo/chart-pie-demo.js"></script>
 
 </body>
 
