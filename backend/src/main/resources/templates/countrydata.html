@@ -192,10 +192,8 @@
             <script type="text/javascript">
                 function fetchData(pais) {
                     $.get("http://localhost:8080/api/statistics/" + pais, function (data) {
-                        console.log(data)
-                        console.log("dddddddddddddddddddddddddd")
+                   
                         if (data.length === 0) {
-                            alert("merda")
                             Swal.fire({
                                 icon: 'error',
                                 title: 'Oops...',
@@ -245,9 +243,7 @@
 
 
                 document.getElementById ("searchButton").onclick = function () {
-                    alert("epa porra")
                     var pais = document.getElementById("country").value;
-                    console.log("ASaaa")
                     fetchData(pais);
 
                 };
