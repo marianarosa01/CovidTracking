@@ -145,7 +145,6 @@ public class PlaceService {
                 ArrayList<Place> world = getAllCountries();
                 System.out.println(country);
 
-                System.out.println("fds");
                 iso = isoMap.get(country);
 
                 log.info(">> [REQUEST] Getting iso by country name");
