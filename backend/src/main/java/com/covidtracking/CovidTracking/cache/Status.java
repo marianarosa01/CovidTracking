@@ -3,8 +3,8 @@ package com.covidtracking.CovidTracking.cache;
 
 public class Status {
 
-    int hit;
-    int miss;
+    int hit = 0;
+    int miss = 0;
 
     public Status(int hit, int miss) {
         this.hit = hit;
@@ -16,7 +16,7 @@ public class Status {
     }
 
     public void setHit() {
-        this.hit+=1;
+        this.hit +=1;
     }
 
     public int getMiss() {

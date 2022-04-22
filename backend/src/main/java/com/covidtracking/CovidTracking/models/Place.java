@@ -7,19 +7,11 @@ import javax.persistence.*;
 @Table(name = "place")
 public class Place  {
     @Id
-    private String id;
+    private String iso;
     private String country;
     private String continent;
-    private String iso;
-    private Long population;
+    private Integer population;
 
-    public String getId() {
-        return this.id;
-    }
-
-    public void setId(String id) {
-        this.id = id;
-    }
 
     public String getIso() {
         return this.iso;
@@ -29,24 +21,6 @@ public class Place  {
         this.iso = iso;
     }
 
-    public Statistics getStats() {
-        return this.stats;
-    }
-
-    public void setStats(Statistics stats) {
-        this.stats = stats;
-    }
-
-  
-    private Statistics stats;
-
-    public String getCountryId() {
-        return this.id;
-    }
-
-    public void setCountryId(String id) {
-        this.id = id;
-    }
 
     public String getCountry() {
         return this.country;
@@ -64,11 +38,11 @@ public class Place  {
         this.continent = continent;
     }
 
-    public Long getPopulation() {
+    public Integer getPopulation() {
         return this.population;
     }
 
-    public void setPopulation(Long population) {
+    public void setPopulation(Integer population) {
         this.population = population;
     }
 
@@ -77,8 +51,7 @@ public class Place  {
     }
 
 
-    public Place(String Id, String country, String iso, String continent, Long population) {
-        this.id = Id;
+    public Place(String country, String iso, String continent, Integer population) {
         this.country = country;
         this.continent = continent;
         this.population = population;
@@ -88,8 +61,7 @@ public class Place  {
     @Override
     public String toString() {
         return "{" +
-            " Id='" + getCountryId() + "'" +
-            ", country='" + getCountry() + "'" +
+            " Country='" + getCountry() + "'" +
             ", continent='" + getContinent() + "'" +
             ", population='" + getPopulation() + "'" +
             ", iso='" + getIso() + "'" +

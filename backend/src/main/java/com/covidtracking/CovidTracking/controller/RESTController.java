@@ -82,6 +82,19 @@ public class RESTController {
         }
         return namePlaces;
     }
+    @GetMapping("/api/{country}")
+    public Place getPlaceByCountry(@PathVariable String country)
+            throws IOException, URISyntaxException, InterruptedException {
+        Place place = servicePlace.getPlaceByCountryName(country);
+        if (place == null) {
+            return null;
+        }
+
+        else{
+            return place;
+
+        }
+    }
 
     
 

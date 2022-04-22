@@ -5,13 +5,11 @@ import org.json.JSONObject;
 import org.springframework.stereotype.Service;
 
 import java.io.IOException;
-import java.net.URISyntaxException;
 import java.util.ArrayList;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import com.covidtracking.CovidTracking.cache.Cache;
 import com.covidtracking.CovidTracking.cache.Status;
-import com.covidtracking.CovidTracking.models.Place;
 import com.covidtracking.CovidTracking.models.Statistics;
 
 @Service
@@ -26,12 +24,15 @@ public class StatisticsService {
     private ArrayList<Statistics> allStats = new ArrayList<>();
 
     public Statistics getStatsWorld() throws IOException, InterruptedException {
+
+        //corrigir cache
+        
         HandlingRequestsService handler = new HandlingRequestsService();
         endpoint = "npm-covid-data/world";
         String data = handler.connectAPI(endpoint);
         JSONArray jsonArray = new JSONArray(data);
         JSONObject obj = (JSONObject) jsonArray.get(0);
-        Object statsWorld = Cache.cacheMap.get("world_stats");
+        Object statsWorld = Cache.cacheMap.get("world_statistics");
         Statistics s;
 
         if (statsWorld == null) {

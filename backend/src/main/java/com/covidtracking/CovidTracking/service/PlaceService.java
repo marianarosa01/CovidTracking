@@ -76,12 +76,11 @@ public class PlaceService {
             JSONObject objectJSON = (JSONObject) jsonArray.get(i);
             String country = objectJSON.get("Country").toString();
             String continent = objectJSON.get("Continent").toString();
-            String id = objectJSON.get("id").toString();
             String population = objectJSON.get("Population").toString();
             String iso = objectJSON.get("ThreeLetterSymbol").toString();
-            Long pop_long = Long.valueOf(population);
+            Integer pop_long = Integer.valueOf(population);
 
-            Place newPlace = new Place(id, country, iso, continent, pop_long);
+            Place newPlace = new Place(country, iso, continent, pop_long);
 
             if (continents.contains(newPlace) == false) {
                 continents.add(newPlace);
@@ -97,19 +96,21 @@ public class PlaceService {
     }
 
     public Place getPlaceByCountryName(String country) {
+        String countryName = country.substring(0, 1).toUpperCase() + country.substring(1);
+        System.out.println(countryName);
         Place selectedCountry = new Place();
-
-        Object placeCache = Cache.cacheMap.get("country_name_" + country + "_return_place");
+        Object placeCache = Cache.cacheMap.get("country_name_" + countryName + "_return_place");
         if (placeCache == null) {
             System.out.println("here");
             try {
                 ArrayList<Place> world = getAllCountries();
+
                 System.out.println("hi");
-                System.out.println("hihihihi");
+                System.out.println(countryName);
                 for (Place p : world) {
-                    if (p.getCountry() == country) {
+                    if ( countryName.equals(p.getCountry())) {
                         selectedCountry = p;
-                        System.out.println("A RESPOSTA E");
+                        System.out.println(selectedCountry);
                         System.out.println(selectedCountry);
 
                     }
@@ -117,14 +118,15 @@ public class PlaceService {
                 }
 
                 log.info(">> [REQUEST] Getting place by country name");
-                Cache.cacheMap.put("country_name_" + country + "_return_place", selectedCountry);
+                Cache.cacheMap.put("country_name_" + countryName + "_return_place", selectedCountry);
                 st.setMiss();
-                st.TimerCache("country_name_" + country + "_return_place");
+                st.TimerCache("country_name_" + countryName + "_return_place");
 
             } catch (IOException | URISyntaxException | InterruptedException e) {
                 e.printStackTrace();
             }
-        } else {
+        } 
+        else {
             selectedCountry = (Place) placeCache;
             log.info(">> [CACHE] Getting place by country name");
 

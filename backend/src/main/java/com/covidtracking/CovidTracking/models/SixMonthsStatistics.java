@@ -1,9 +1,5 @@
 package com.covidtracking.CovidTracking.models;
 
-import java.lang.annotation.Inherited;
-import java.sql.Date;
-import java.util.Objects;
-
 import javax.persistence.*;
 
 @Entity

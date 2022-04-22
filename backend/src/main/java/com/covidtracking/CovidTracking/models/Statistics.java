@@ -1,7 +1,6 @@
 package com.covidtracking.CovidTracking.models;
 
-import java.lang.annotation.Inherited;
-import java.util.Objects;
+
 
 import javax.persistence.*;
 

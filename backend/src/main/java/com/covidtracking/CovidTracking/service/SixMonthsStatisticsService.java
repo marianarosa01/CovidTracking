@@ -5,12 +5,9 @@ import org.json.JSONObject;
 import org.springframework.stereotype.Service;
 
 import java.io.IOException;
-import java.net.URISyntaxException;
 import java.util.ArrayList;
 
 import com.covidtracking.CovidTracking.models.SixMonthsStatistics;
-import com.covidtracking.CovidTracking.models.Statistics;
-import com.covidtracking.CovidTracking.service.StatisticsService;
 @Service
 public class SixMonthsStatisticsService {
     
