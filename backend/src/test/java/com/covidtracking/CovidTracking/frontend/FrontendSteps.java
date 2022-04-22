@@ -29,7 +29,7 @@ public class FrontendSteps {
         driver.manage().window().setSize(new Dimension(1479, 837));
     }
 
-    @When("When the customer want's to check today world data")
+    @When("the customer want's to check today world data")
     public void checkTodaysData(){
         assertThat(driver.findElement(By.cssSelector("h3")).getText(), containsString("Today's World Data"));
     }

@@ -133,7 +133,7 @@
 
                     <!-- Page Heading -->
                     <div class="d-sm-flex align-items-center justify-content-between mb-4">
-                        <h1 class="h2 mb-0  text-gray-800">
+                        <h1 class="h1 mb-10  text-gray-800">
                             <bold>Dashboard </bold>
                         </h1>
                     </div>
@@ -152,7 +152,7 @@
                     </div>
                     <div class="card shadow mb-4">
                         <div class="card-header py-3">
-                            <h6 class="m-0 font-weight-bold text-primary">DataTables Example</h6>
+                            <h6 class="m-0 font-weight-bold text-primary" id="date"> </h6>
                         </div>
                         <div class="card-body">
                             <div class="table-responsive" id="info">
@@ -243,6 +243,11 @@
                     fetchData(pais);
 
                 };
+                n =  new Date();
+                y = n.getFullYear();
+                m = n.getMonth() + 1;
+                d = n.getDate();
+                document.getElementById("date").innerHTML = d + "/" + m + "/" + y;
 
 
 
