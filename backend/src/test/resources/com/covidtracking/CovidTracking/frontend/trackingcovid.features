@@ -1,0 +1,19 @@
+Feature: Tracking
+ 
+    Scenario: Search for all world covid statistics
+     Given the url "http://localhost:8080/"
+     When the customer want's to check today world data
+     And he/she clicks in "All Countries" side bar button
+     Then he/she should see the following message "Today's World Data"
+
+    Scenario: See Croatia statistics
+     Given the url "http://localhost:8080/countrydata"
+     When the customer searches for 'Portugal'
+     Then Portugal statistics are presented in a table
+
+    Scenario: User searches for a nonexistent country
+     Given the url "http://localhost:8080/countrydata"
+     When the customer searches for 'Azores'
+     Then he/she should see an alert with the following message "This country does not exist!"
+
+       

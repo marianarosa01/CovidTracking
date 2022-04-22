@@ -18,6 +18,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+
 @RestController
 public class RESTController {
 
@@ -41,13 +42,12 @@ public class RESTController {
     @GetMapping("/api/statistics/countries")
     public ArrayList<Statistics> getCountriesStatistics()
             throws ResourceNotFoundException, IOException, URISyntaxException, InterruptedException {
-        return service.getStatisticsData("");
+                return service.getStatisticsData("");
     }
 
-    @GetMapping("/api/statistics/{country}")
+    @GetMapping("/api/statistics/{country}/")
     public ArrayList<Statistics> getStatsByCountry(@PathVariable(value = "country") String country)
             throws ResourceNotFoundException, InterruptedException, IOException {
-
         return service.getStatisticsData(country);
     }
 
@@ -82,6 +82,7 @@ public class RESTController {
         }
         return namePlaces;
     }
+    
     @GetMapping("/api/{country}")
     public Place getPlaceByCountry(@PathVariable String country)
             throws IOException, URISyntaxException, InterruptedException {

@@ -21,9 +21,9 @@ public class CacheTest { //unit testing
         // Places
         // duvidas estes valores tem de ser inventados?
 
-        Place france = new Place("fra", "France", "Europe", 65533058);
-        Place brasil = new Place("bra", "Brazil", "South America", 215274575);
-        Place croatia = new Place("hrv", "Croatia", "Europe", 4059781);
+        Place france = new Place("France", "fra", "Europe", 65533058);
+        Place brasil = new Place("Brazil", "bra", "South America", 215274575);
+        Place croatia = new Place("Croatia", "hrv", "Europe", 4059781);
         Place azores = new Place("az", "Azores", "Europe", 4059781);
 
         Cache.cacheMap.put("country_name_brazil_return_place", brasil);

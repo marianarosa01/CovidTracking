@@ -34,6 +34,7 @@ public class HandlingRequestsService {
     private CloseableHttpClient client;
 
     public String connectAPI(String endpoint) throws IOException, InterruptedException {
+        
         HttpRequest request = HttpRequest.newBuilder()
             .uri(URI.create(apiURL + endpoint))
             .header("X-RapidAPI-Host", apiHost)

@@ -26,26 +26,29 @@ public class StatisticsService {
     public Statistics getStatsWorld() throws IOException, InterruptedException {
 
         //corrigir cache
-        
-        HandlingRequestsService handler = new HandlingRequestsService();
-        endpoint = "npm-covid-data/world";
-        String data = handler.connectAPI(endpoint);
-        JSONArray jsonArray = new JSONArray(data);
-        JSONObject obj = (JSONObject) jsonArray.get(0);
         Object statsWorld = Cache.cacheMap.get("world_statistics");
         Statistics s;
 
         if (statsWorld == null) {
+            HandlingRequestsService handler = new HandlingRequestsService();
+            endpoint = "npm-covid-data/world";
+            String data = handler.connectAPI(endpoint);
+            JSONArray jsonArray = new JSONArray(data);
+            JSONObject obj = (JSONObject) jsonArray.get(0);
             s = analysing(obj);
             log.info(">> [REQUEST] Getting world stats");
             Cache.cacheMap.put("world_statistics", s);
             st.setMiss();
             st.TimerCache("world_statistics");
+        
         } else {
             s = (Statistics) statsWorld;
             log.info(">> [CACHE] Getting world stats");
 
         }
+       
+
+       
 
         return s;
     }
@@ -97,7 +100,8 @@ public class StatisticsService {
                 allStats.add((Statistics) statsCountry);
                 log.info(">> [CACHE] Getting country statistics");
             }
-
+            System.out.println(allStats);
+            System.out.println("hahaha");
         }
 
         return allStats;
