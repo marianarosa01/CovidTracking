@@ -18,7 +18,6 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-
 @RestController
 public class RESTController {
 
@@ -42,7 +41,7 @@ public class RESTController {
     @GetMapping("/api/statistics/countries")
     public ArrayList<Statistics> getCountriesStatistics()
             throws ResourceNotFoundException, IOException, URISyntaxException, InterruptedException {
-                return service.getStatisticsData("");
+        return service.getStatisticsData("");
     }
 
     @GetMapping("/api/statistics/{country}/")
@@ -51,12 +50,9 @@ public class RESTController {
         return service.getStatisticsData(country);
     }
 
-
     @GetMapping("/api/countries/all")
     public ArrayList<Place> getAllCountries() throws IOException, URISyntaxException, InterruptedException {
-        System.out.println("AAAAa");
         ArrayList<Place> places = servicePlace.getAllCountries();
-        System.out.println(places);
         if (places == null) {
             return null;
         }
@@ -82,7 +78,7 @@ public class RESTController {
         }
         return namePlaces;
     }
-    
+
     @GetMapping("/api/{country}")
     public Place getPlaceByCountry(@PathVariable String country)
             throws IOException, URISyntaxException, InterruptedException {
@@ -91,18 +87,14 @@ public class RESTController {
             return null;
         }
 
-        else{
+        else {
             return place;
 
         }
     }
-
-    
 
     @RequestMapping("/api/cache")
     public Object getCacheStatistics() {
         return st.toString();
     }
 }
-
-

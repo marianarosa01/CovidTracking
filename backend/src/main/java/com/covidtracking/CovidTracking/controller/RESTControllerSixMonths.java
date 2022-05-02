@@ -17,6 +17,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+//Note: didn't end using them in the frontend, however they exist
 @RestController
 @RequestMapping("/api/sixmonths/stats")
 public class RESTControllerSixMonths {
@@ -27,11 +28,6 @@ public class RESTControllerSixMonths {
     @Autowired
     public HandlingRequestsService handler;
 
-
-    @GetMapping("/world")
-    public ArrayList<SixMonthsStatistics> getWorldStatistics() throws ResourceNotFoundException, IOException, URISyntaxException, InterruptedException {
-        return service.getStatisticsData("");
-    }
 
     @GetMapping("/{iso}")
     public ArrayList<SixMonthsStatistics> getCountriesStatistics(@PathVariable String iso) throws ResourceNotFoundException, IOException, URISyntaxException, InterruptedException {

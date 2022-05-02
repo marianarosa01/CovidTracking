@@ -11,7 +11,6 @@ import com.covidtracking.CovidTracking.models.SixMonthsStatistics;
 @Service
 public class SixMonthsStatisticsService {
     
-    private StatisticsService statisticsService;
     private ArrayList<SixMonthsStatistics> allStats = new ArrayList<>();
 
     public ArrayList<SixMonthsStatistics> getStatisticsData(String iso) throws InterruptedException, IOException {
@@ -20,10 +19,8 @@ public class SixMonthsStatisticsService {
         if (iso == "" ) {
             String endpoint = "covid-ovid-data/sixmonth/" ;
             String data = handler.connectAPI(endpoint);
-            System.out.println(endpoint);
-            System.out.println("hahaha");
+      
             JSONArray jsonArray = new JSONArray(data);
-            System.out.println(data);
 
             for (int i = 0; i < jsonArray.length(); i++) {
                 JSONObject objectJSON = (JSONObject) jsonArray.get(i);
@@ -35,13 +32,10 @@ public class SixMonthsStatisticsService {
         }
 
         else {
-            System.out.println("aaa");
 
             String endpoint = "covid-ovid-data/sixmonth/" + iso;
-            System.out.println(endpoint);
             String data2 = handler.connectAPI(endpoint);
             JSONArray jsonArray2 = new JSONArray(data2);
-            System.out.println(data2);
             for (int i = 0; i < jsonArray2.length(); i++) {
                 JSONObject objectJSONCountry = (JSONObject) jsonArray2.get(i);
                 SixMonthsStatistics statCountry = analysing(objectJSONCountry);

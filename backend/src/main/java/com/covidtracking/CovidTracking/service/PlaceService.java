@@ -22,7 +22,6 @@ import org.slf4j.LoggerFactory;
 @Service
 public class PlaceService {
 
-    private HandlingRequestsService handler;
     private HashMap<String, String> isoMap = new HashMap<>();
     private static final Logger log = LoggerFactory.getLogger(PlaceService.class);
 
@@ -57,7 +56,6 @@ public class PlaceService {
 
         }
 
-        System.out.println("worlddddddddddddddddd");
 
         return world;
 
@@ -97,21 +95,16 @@ public class PlaceService {
 
     public Place getPlaceByCountryName(String country) {
         String countryName = country.substring(0, 1).toUpperCase() + country.substring(1);
-        System.out.println(countryName);
         Place selectedCountry = new Place();
         Object placeCache = Cache.cacheMap.get("country_name_" + countryName + "_return_place");
         if (placeCache == null) {
-            System.out.println("here");
             try {
                 ArrayList<Place> world = getAllCountries();
 
-                System.out.println("hi");
-                System.out.println(countryName);
+            
                 for (Place p : world) {
                     if ( countryName.equals(p.getCountry())) {
                         selectedCountry = p;
-                        System.out.println(selectedCountry);
-                        System.out.println(selectedCountry);
 
                     }
 
@@ -138,12 +131,10 @@ public class PlaceService {
 
     public String getIso(String country) {
         String iso = "";
-        System.out.println("here");
         Object isoCache = Cache.cacheMap.get("country_" + country + "_iso_");
         if (isoCache == null) {
             try {
                 ArrayList<Place> world = getAllCountries();
-                System.out.println(country);
 
                 iso = isoMap.get(country);
 
@@ -167,48 +158,3 @@ public class PlaceService {
 
 }
 
-/*
- * @Autowired
- * private PlaceRepository repository;
- * 
- * public Place savePlace(Place place) {
- * return repository.save(place);
- * }
- * 
- * public Place getPlaceByCountryId(Integer id){
- * return repository.getById(id);
- * }
- * 
- * public List<Place> savePlaces(List<Place> Places) { return
- * repository.saveAll(Places); }
- * 
- * public List<Place> getPlaces() { return repository.findAll(); }
- * 
- * 
- * public Place getPlaceByID(int id) throws ResourceNotFoundException {
- * return repository.findById(id)
- * .orElseThrow(() -> new
- * ResourceNotFoundException("Place not found for this id:" + id));
- * }
- * 
- * public Map<String, Boolean> deletePlace(int id) throws
- * ResourceNotFoundException {
- * repository.findById(id).orElseThrow(() -> new
- * ResourceNotFoundException("Place not found for this id:" + id));
- * repository.deleteById(id);
- * Map<String, Boolean> response = new HashMap<>();
- * response.put("deleted", Boolean.TRUE);
- * return response;
- * }
- * 
- * public Place updatePlace(int id, Place place) throws
- * ResourceNotFoundException {
- * Place existingPlace = repository.findById(id)
- * .orElseThrow(() -> new
- * ResourceNotFoundException("Place not found for this id:" + id));
- * 
- * existingPlace.setCountry(place.getCountry());
- * existingPlace.setContinent(place.getContinent());
- * return repository.save(existingPlace);
- * }
- */

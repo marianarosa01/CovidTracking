@@ -16,7 +16,6 @@ import com.covidtracking.CovidTracking.models.Statistics;
 public class StatisticsService {
 
     private String endpoint;
-    private HandlingRequestsService handler;
     private PlaceService placesService = new PlaceService();
     private static final Logger log = LoggerFactory.getLogger(PlaceService.class);
     Status st = new Status(0, 0);
@@ -95,13 +94,11 @@ public class StatisticsService {
             }
             else{
                 allStats.clear();
-                System.out.println("dsa");
-                System.out.println(statsCountry);
+              
                 allStats.add((Statistics) statsCountry);
                 log.info(">> [CACHE] Getting country statistics");
             }
-            System.out.println(allStats);
-            System.out.println("hahaha");
+         
         }
 
         return allStats;

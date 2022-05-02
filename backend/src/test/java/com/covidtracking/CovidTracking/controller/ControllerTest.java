@@ -11,16 +11,11 @@ import org.springframework.http.MediaType;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.web.bind.annotation.RestController;
 
-import java.text.SimpleDateFormat;
 import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.Date;
-import java.util.List;
 
 import com.covidtracking.CovidTracking.models.Place;
 import com.covidtracking.CovidTracking.models.Statistics;
 import com.covidtracking.CovidTracking.service.PlaceService;
-import com.covidtracking.CovidTracking.service.StatisticTest;
 import com.covidtracking.CovidTracking.service.StatisticsService;
 
 import static org.hamcrest.CoreMatchers.is;
@@ -146,7 +141,6 @@ public class ControllerTest {
         placesArray.add(france);
         placesArray.add(croatia);
 
-        System.out.println(placesArray);
         when( placeService.getContinentCountries("europe")).thenReturn(placesArray);
 
         mvc.perform(

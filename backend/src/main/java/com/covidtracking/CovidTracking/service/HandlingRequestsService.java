@@ -1,19 +1,9 @@
 package com.covidtracking.CovidTracking.service;
 
-import org.apache.http.client.utils.URIBuilder;
 import org.json.JSONArray;
 import org.springframework.stereotype.Service;
-
-import org.apache.http.HttpEntity;
-import org.apache.http.client.methods.CloseableHttpResponse;
-import org.apache.http.client.methods.HttpGet;
 import org.apache.http.impl.client.CloseableHttpClient;
 import org.apache.http.impl.client.HttpClients;
-import org.apache.http.util.EntityUtils;
-import org.json.simple.parser.JSONParser;
-import org.json.simple.parser.ParseException;
-
-import java.awt.*;
 import java.io.IOException;
 import java.net.URI;
 import java.net.URISyntaxException;
@@ -60,7 +50,6 @@ public class HandlingRequestsService {
         for(int i = 0; i < jsonArray.length(); i++) {
             JSONObject objectJSON =  (JSONObject) jsonArray.get(i);
             String c = objectJSON.get("Country").toString();
-            System.out.println(c);
             countries.add(c);
         }
         return countries;
@@ -70,41 +59,4 @@ public class HandlingRequestsService {
 
 
 
-}/*
-        URIBuilder builder = new URIBuilder(url.replaceAll(" ", "%20"));
-        String response = constructUrlRequest(builder.build().toString());
-
-        JSONObject responseJson = new JSONObject(response);
-
-        if(responseJson.get("status").toString() == "fail"){
-            return null;
-        }
-
-        JSONArray data = new JSONArray(responseJson.get("data").toString());
-
-        for (Object obj: data){
-            JSONObject jsonObj = (JSONObject) obj;
-            if (flag == 0)
-                values.add(jsonObj.get("state").toString());
-            else
-                values.add(jsonObj.get("country").toString());
-
-        }
-        return values; */
-    
-
-
-    //tentar 1 endpoint ir buscar os paises
-    //controller vai ter serviço --> chamar metodo getData no controller p serviço ir buscar API
-
-
-
-    
-   
-
-    //System.out.println(response.body());
-
-    //private Cache cache = new Cache(60);
-
-    
-
+}
