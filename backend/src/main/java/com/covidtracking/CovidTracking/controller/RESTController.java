@@ -93,7 +93,7 @@ public class RESTController {
         }
     }
 
-    @RequestMapping("/api/cache")
+    @GetMapping("/api/cache")
     public Object getCacheStatistics() {
         return st.toString();
     }

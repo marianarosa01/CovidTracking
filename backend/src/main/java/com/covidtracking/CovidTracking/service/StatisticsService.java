@@ -53,10 +53,13 @@ public class StatisticsService {
     }
 
     public ArrayList<Statistics> getStatisticsData(String country) throws InterruptedException, IOException {
+        
+        String countryBuilder = "country_";
+        String statBuilder = "_statistics"; 
         allStats.clear();
         HandlingRequestsService handler = new HandlingRequestsService();
        
-        if (country == "" ) {
+        if (country.equals("")) {
             endpoint = "npm-covid-data/countries/";
             String data = handler.connectAPI(endpoint);
             JSONArray jsonArray = new JSONArray(data);
@@ -71,7 +74,7 @@ public class StatisticsService {
 
         else {
 
-            Object statsCountry = Cache.cacheMap.get("country_"+ country + "_statistics");
+            Object statsCountry = Cache.cacheMap.get(countryBuilder+ country + "_statistics");
 
             if (statsCountry == null){
                 allStats.clear();
@@ -85,12 +88,12 @@ public class StatisticsService {
                     JSONObject objectJSONCountry = (JSONObject) jsonArray2.get(i);
                     statCountry = analysing(objectJSONCountry);
                     allStats.add(statCountry);
-                    Cache.cacheMap.put("country_"+ country + "_statistics", statCountry);
+                    Cache.cacheMap.put(countryBuilder+ country + statBuilder, statCountry);
                 }
                 
                 log.info(">> [REQUEST] Getting country statistics");
                 st.setMiss();
-                st.TimerCache("country_"+ country + "_statistics");
+                st.TimerCache(countryBuilder+ country + statBuilder);
             }
             else{
                 allStats.clear();

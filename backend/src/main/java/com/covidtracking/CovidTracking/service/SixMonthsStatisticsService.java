@@ -16,7 +16,7 @@ public class SixMonthsStatisticsService {
     public ArrayList<SixMonthsStatistics> getStatisticsData(String iso) throws InterruptedException, IOException {
 
         HandlingRequestsService handler = new HandlingRequestsService();
-        if (iso == "" ) {
+        if (iso.equals("") ) {
             String endpoint = "covid-ovid-data/sixmonth/" ;
             String data = handler.connectAPI(endpoint);
       

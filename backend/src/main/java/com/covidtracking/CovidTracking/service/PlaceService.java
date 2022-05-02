@@ -26,8 +26,12 @@ public class PlaceService {
     private static final Logger log = LoggerFactory.getLogger(PlaceService.class);
 
     Status st = new Status(0, 0);
+    
 
     public ArrayList<Place> getAllCountries() throws IOException, URISyntaxException, InterruptedException {
+        
+        String continentBuilder = "continent_";
+
         ArrayList<Place> world = new ArrayList<>();
         ArrayList<String> continents = new ArrayList<>();
         continents.add("africa");
@@ -38,15 +42,15 @@ public class PlaceService {
         continents.add("asia");
 
         for (String c : continents) {
-            Object continentCache = Cache.cacheMap.get("continent_" + c);
+            Object continentCache = Cache.cacheMap.get(continentBuilder + c);
 
             if (continentCache == null) {
                 world.addAll(getContinentCountries(c));
 
                 log.info(">> [REQUEST] Getting continent countries");
-                Cache.cacheMap.put("continent_" + c, getContinentCountries(c));
+                Cache.cacheMap.put(continentBuilder + c, getContinentCountries(c));
                 st.setMiss();
-                st.TimerCache("continent_" + c);
+                st.TimerCache(continentBuilder + c);
             }
 
             else {
@@ -84,7 +88,7 @@ public class PlaceService {
                 continents.add(newPlace);
             }
 
-            if (isoMap.containsKey(newPlace) == false) {
+            if (isoMap.containsKey(newPlace.getCountry()) == false) {
                 isoMap.put(country, iso);
             }
 
@@ -117,6 +121,8 @@ public class PlaceService {
 
             } catch (IOException | URISyntaxException | InterruptedException e) {
                 e.printStackTrace();
+                Thread.currentThread().interrupt();
+
             }
         } 
         else {
@@ -131,7 +137,9 @@ public class PlaceService {
 
     public String getIso(String country) {
         String iso = "";
-        Object isoCache = Cache.cacheMap.get("country_" + country + "_iso_");
+        String isoBuilder = "_iso_";
+        String countryBuilder ="country_";
+        Object isoCache = Cache.cacheMap.get(countryBuilder + country + isoBuilder);
         if (isoCache == null) {
             try {
                 ArrayList<Place> world = getAllCountries();
@@ -139,12 +147,14 @@ public class PlaceService {
                 iso = isoMap.get(country);
 
                 log.info(">> [REQUEST] Getting iso by country name");
-                Cache.cacheMap.put("country_" + country + "_iso_", iso);
+                Cache.cacheMap.put(countryBuilder + country + isoBuilder, iso);
                 st.setMiss();
-                st.TimerCache("country_" + country + "_iso_");
+                st.TimerCache(countryBuilder + country + isoBuilder);
 
             } catch (IOException | URISyntaxException | InterruptedException e) {
                 e.printStackTrace();
+                Thread.currentThread().interrupt();
+
             }
         } else {
             iso = (String) isoCache;

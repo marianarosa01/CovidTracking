@@ -59,7 +59,7 @@ public class FrontendSteps {
 
     @Then("{string} statistics are presented in a table") 
     public void getResults(String country) throws InterruptedException{
-        Thread.sleep(2000); // wait for the data
+        Thread.sleep(10000); // wait for the data, note that if the data is already on cache 2000 is enough to get the info
         assertThat(driver.findElement(By.cssSelector("td:nth-child(1)")).getText(), containsString(country));
     }
     
