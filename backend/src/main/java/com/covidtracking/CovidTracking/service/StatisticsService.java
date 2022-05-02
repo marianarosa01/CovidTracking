@@ -74,7 +74,7 @@ public class StatisticsService {
 
         else {
 
-            Object statsCountry = Cache.cacheMap.get(countryBuilder+ country + "_statistics");
+            Object statsCountry = Cache.cacheMap.get(countryBuilder+ country + statBuilder);
 
             if (statsCountry == null){
                 allStats.clear();

@@ -19,7 +19,6 @@ public class CacheTest { //unit testing
         HashMap<String, Object> expectedCashMap = new HashMap<>();
 
         // Places
-        // duvidas estes valores tem de ser inventados?
 
         Place france = new Place("France", "fra", "Europe", 65533058);
         Place brasil = new Place("Brazil", "bra", "South America", 215274575);

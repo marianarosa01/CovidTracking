@@ -98,9 +98,11 @@ public class PlaceService {
     }
 
     public Place getPlaceByCountryName(String country) {
+        String countryBuilder= "country_name_";
+        String  returnBuilder = "_return_place";
         String countryName = country.substring(0, 1).toUpperCase() + country.substring(1);
         Place selectedCountry = new Place();
-        Object placeCache = Cache.cacheMap.get("country_name_" + countryName + "_return_place");
+        Object placeCache = Cache.cacheMap.get(countryBuilder + countryName + returnBuilder);
         if (placeCache == null) {
             try {
                 ArrayList<Place> world = getAllCountries();
@@ -115,9 +117,9 @@ public class PlaceService {
                 }
 
                 log.info(">> [REQUEST] Getting place by country name");
-                Cache.cacheMap.put("country_name_" + countryName + "_return_place", selectedCountry);
+                Cache.cacheMap.put(countryBuilder + countryName + returnBuilder, selectedCountry);
                 st.setMiss();
-                st.TimerCache("country_name_" + countryName + "_return_place");
+                st.TimerCache(countryBuilder + countryName + returnBuilder);
 
             } catch (IOException | URISyntaxException | InterruptedException e) {
                 e.printStackTrace();

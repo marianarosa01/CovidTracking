@@ -3,23 +3,14 @@ package com.covidtracking.CovidTracking.service;
 
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
-import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.Mockito;
 import org.mockito.junit.jupiter.MockitoExtension;
-import org.springframework.mock.web.MockJspWriter;
-import static org.mockito.Mockito.lenient;
 import java.io.IOException;
-import java.text.ParseException;
-import java.text.SimpleDateFormat;
 import java.util.ArrayList;
-
-import com.covidtracking.CovidTracking.cache.Cache;
 import com.covidtracking.CovidTracking.models.Statistics;
 
-import org.json.JSONException;
 import static org.junit.jupiter.api.Assertions.*;
-import static org.assertj.core.api.Assertions.assertThat;
 
 @ExtendWith(MockitoExtension.class)
 public class StatisticServiceTest {
